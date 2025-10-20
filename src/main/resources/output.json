@@ -1,0 +1,24 @@
+[
+  {
+    "graph_name": "Graph 1",
+    "prim_operations": 12,
+    "vertices": 5,
+    "edges": 7,
+    "prim_cost": 16.0,
+    "kruskal_operations": 32,
+    "kruskal_time_ms": 11,
+    "prim_time_ms": 1,
+    "kruskal_cost": 16.0
+  },
+  {
+    "graph_name": "Graph 2",
+    "prim_operations": 8,
+    "vertices": 4,
+    "edges": 5,
+    "prim_cost": 6.0,
+    "kruskal_operations": 22,
+    "kruskal_time_ms": 0,
+    "prim_time_ms": 0,
+    "kruskal_cost": 6.0
+  }
+]

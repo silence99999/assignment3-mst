@@ -15,18 +15,44 @@ public class JsonReader {
     }
 
     public static Graph buildGraphFromJson(JsonObject graphObj) {
-        int vertices = graphObj.get("vertices").getAsInt();
+
+        JsonArray nodesArray = graphObj.getAsJsonArray("nodes");
+        int vertices = nodesArray.size();
         Graph graph = new Graph(vertices);
+
 
         JsonArray edgesArray = graphObj.getAsJsonArray("edges");
         for (JsonElement edgeElement : edgesArray) {
             JsonObject edge = edgeElement.getAsJsonObject();
-            int source = edge.get("source").getAsInt();
-            int destination = edge.get("destination").getAsInt();
+
+
+            String from = edge.get("from").getAsString();
+            String to = edge.get("to").getAsString();
             double weight = edge.get("weight").getAsDouble();
-            graph.addEdge(source, destination, weight);
+
+
+            int sourceIndex = findNodeIndex(nodesArray, from);
+            int destIndex = findNodeIndex(nodesArray, to);
+
+            if (sourceIndex == -1 || destIndex == -1) {
+                throw new IllegalArgumentException("Указан неверный узел: " + from + " или " + to);
+            }
+
+            graph.addEdge(sourceIndex, destIndex, weight);
         }
 
         return graph;
     }
+
+
+    private static int findNodeIndex(JsonArray nodes, String nodeName) {
+        for (int i = 0; i < nodes.size(); i++) {
+            if (nodes.get(i).getAsString().equals(nodeName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 }
