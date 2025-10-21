@@ -6,6 +6,7 @@ import mst.model.Graph;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.*;
 
 public class JsonReader {
 
@@ -14,45 +15,54 @@ public class JsonReader {
         return JsonParser.parseString(content).getAsJsonObject();
     }
 
+
     public static Graph buildGraphFromJson(JsonObject graphObj) {
 
         JsonArray nodesArray = graphObj.getAsJsonArray("nodes");
         int vertices = nodesArray.size();
+
+        Map<String, Integer> nodeToIndex = new HashMap<>();
+        for (int i = 0; i < vertices; i++) {
+            String nodeName = nodesArray.get(i).getAsString();
+            nodeToIndex.put(nodeName, i);
+        }
+
         Graph graph = new Graph(vertices);
+
+        graph.setNodeNames(nodeToIndex);
 
 
         JsonArray edgesArray = graphObj.getAsJsonArray("edges");
         for (JsonElement edgeElement : edgesArray) {
             JsonObject edge = edgeElement.getAsJsonObject();
 
-
-            String from = edge.get("from").getAsString();
-            String to = edge.get("to").getAsString();
+            String fromNode = edge.get("from").getAsString();
+            String toNode = edge.get("to").getAsString();
             double weight = edge.get("weight").getAsDouble();
 
 
-            int sourceIndex = findNodeIndex(nodesArray, from);
-            int destIndex = findNodeIndex(nodesArray, to);
+            int source = nodeToIndex.get(fromNode);
+            int destination = nodeToIndex.get(toNode);
 
-            if (sourceIndex == -1 || destIndex == -1) {
-                throw new IllegalArgumentException("Указан неверный узел: " + from + " или " + to);
-            }
-
-            graph.addEdge(sourceIndex, destIndex, weight);
+            graph.addEdge(source, destination, weight);
         }
 
         return graph;
     }
 
+    public static Graph buildGraphFromJsonNumeric(JsonObject graphObj) {
+        int vertices = graphObj.get("vertices").getAsInt();
+        Graph graph = new Graph(vertices);
 
-    private static int findNodeIndex(JsonArray nodes, String nodeName) {
-        for (int i = 0; i < nodes.size(); i++) {
-            if (nodes.get(i).getAsString().equals(nodeName)) {
-                return i;
-            }
+        JsonArray edgesArray = graphObj.getAsJsonArray("edges");
+        for (JsonElement edgeElement : edgesArray) {
+            JsonObject edge = edgeElement.getAsJsonObject();
+            int source = edge.get("source").getAsInt();
+            int destination = edge.get("destination").getAsInt();
+            double weight = edge.get("weight").getAsDouble();
+            graph.addEdge(source, destination, weight);
         }
-        return -1;
+
+        return graph;
     }
-
-
 }

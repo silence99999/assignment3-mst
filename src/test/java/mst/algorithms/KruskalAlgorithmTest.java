@@ -42,7 +42,6 @@ public class KruskalAlgorithmTest {
     @DisplayName("Kruskal's algorithm on dense graph")
     public void testDenseGraph() {
         Graph graph = new Graph(5);
-        // Create complete graph K5
         graph.addEdge(0, 1, 2);
         graph.addEdge(0, 2, 3);
         graph.addEdge(0, 3, 4);
@@ -57,7 +56,7 @@ public class KruskalAlgorithmTest {
         MSTResult result = KruskalAlgorithm.findMST(graph);
 
         assertEquals(4, result.getMstEdges().size());
-        assertEquals(14.0, result.getTotalCost(), 0.01); // 2 + 3 + 4 + 5
+        assertEquals(14.0, result.getTotalCost(), 0.01);
     }
 
     @Test

@@ -11,47 +11,70 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            String inputPath = "src/main/resources/assign_3_input.json";
-            String outputPath = "src/main/resources/output.json";
+            String basePath = "src/main/resources/";
+            String[] testFiles = {
+                    "test_small_graph.json",
+                    "test_medium_graph.json",
+                    "test_large_graph.json",
+                    "assign_3_input.json"
+            };
 
-            JsonObject inputData = JsonReader.readJsonFile(inputPath);
-            JsonArray graphsArray = inputData.getAsJsonArray("graphs");
+            for (String fileName : testFiles) {
+                String inputPath = basePath + fileName;
+                String outputPath = basePath + fileName.replace(".json", "_output.json");
 
-            List<Map<String, Object>> results = new ArrayList<>();
+                System.out.println("\n============================");
+                System.out.println("Running test: " + fileName);
+                System.out.println("============================");
 
-            for (JsonElement graphElement : graphsArray) {
-                JsonObject graphObj = graphElement.getAsJsonObject();
-                String graphName = "Graph " + graphObj.get("id").getAsInt();
+                JsonObject fileObj = JsonReader.readJsonFile(inputPath);
+
+                JsonArray graphsArray;
+                if (fileObj.has("graphs")) {
+                    graphsArray = fileObj.getAsJsonArray("graphs");
+                } else {
+                    graphsArray = new JsonArray();
+                    graphsArray.add(fileObj);
+                }
 
 
-                Graph graph = JsonReader.buildGraphFromJson(graphObj);
+                List<Map<String, Object>> allResults = new ArrayList<>();
 
-                System.out.println("\n=== Processing: " + graphName + " ===");
 
-                MSTResult primResult = PrimAlgorithm.findMST(graph);
-                System.out.println(primResult);
+                for (JsonElement element : graphsArray) {
+                    JsonObject graphObj = element.getAsJsonObject();
 
-                MSTResult kruskalResult = KruskalAlgorithm.findMST(graph);
-                System.out.println(kruskalResult);
+                    String graphName = graphObj.has("name")
+                            ? graphObj.get("name").getAsString()
+                            : fileName + " (id=" + graphObj.get("id").getAsInt() + ")";
 
-                Map<String, Object> result = new HashMap<>();
-                result.put("graph_name", graphName);
-                result.put("vertices", graph.getVertices());
-                result.put("edges", graph.getEdges().size());
-                result.put("prim_cost", primResult.getTotalCost());
-                result.put("prim_time_ms", primResult.getExecutionTimeMs());
-                result.put("prim_operations", primResult.getOperations());
-                result.put("kruskal_cost", kruskalResult.getTotalCost());
-                result.put("kruskal_time_ms", kruskalResult.getExecutionTimeMs());
-                result.put("kruskal_operations", kruskalResult.getOperations());
+                    Graph graph = JsonReader.buildGraphFromJson(graphObj);
 
-                results.add(result);
+                    MSTResult primResult = PrimAlgorithm.findMST(graph);
+                    MSTResult kruskalResult = KruskalAlgorithm.findMST(graph);
+
+                    Map<String, Object> result = new LinkedHashMap<>();
+                    result.put("graph_name", graphName);
+                    result.put("vertices", graph.getVertices());
+                    result.put("edges", graph.getEdges().size());
+                    result.put("prim_cost", primResult.getTotalCost());
+                    result.put("prim_time_ms", primResult.getExecutionTimeMs());
+                    result.put("prim_operations", primResult.getOperations());
+                    result.put("kruskal_cost", kruskalResult.getTotalCost());
+                    result.put("kruskal_time_ms", kruskalResult.getExecutionTimeMs());
+                    result.put("kruskal_operations", kruskalResult.getOperations());
+
+                    allResults.add(result);
+
+                    JsonWriter.writeResultsToConsole(Collections.singletonList(result));
+                }
+
+                JsonWriter.writeJsonFile(outputPath, allResults);
+
+                System.out.println("✅ Results written to: " + outputPath);
             }
 
-            JsonWriter.writeJsonFile(outputPath, results);
-            JsonWriter.writeResultsToConsole(results);
-
-            System.out.println("Results written to: " + outputPath);
+            System.out.println("\nAll tests completed successfully.");
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

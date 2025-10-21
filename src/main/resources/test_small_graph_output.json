@@ -1,0 +1,46 @@
+[
+  {
+    "graph_name": "Small Graph 1",
+    "vertices": 4,
+    "edges": 5,
+    "prim_cost": 19.0,
+    "prim_time_ms": 0.2571,
+    "prim_operations": 9,
+    "kruskal_cost": 19.0,
+    "kruskal_time_ms": 0.5095,
+    "kruskal_operations": 26
+  },
+  {
+    "graph_name": "Small Graph 2",
+    "vertices": 3,
+    "edges": 3,
+    "prim_cost": 3.0,
+    "prim_time_ms": 0.0094,
+    "prim_operations": 5,
+    "kruskal_cost": 3.0,
+    "kruskal_time_ms": 0.0104,
+    "kruskal_operations": 14
+  },
+  {
+    "graph_name": "Small Graph 3",
+    "vertices": 5,
+    "edges": 6,
+    "prim_cost": 9.0,
+    "prim_time_ms": 0.011,
+    "prim_operations": 11,
+    "kruskal_cost": 9.0,
+    "kruskal_time_ms": 0.0195,
+    "kruskal_operations": 29
+  },
+  {
+    "graph_name": "Small Graph 4",
+    "vertices": 6,
+    "edges": 9,
+    "prim_cost": 16.0,
+    "prim_time_ms": 0.0153,
+    "prim_operations": 15,
+    "kruskal_cost": 16.0,
+    "kruskal_time_ms": 0.014,
+    "kruskal_operations": 37
+  }
+]

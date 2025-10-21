@@ -1,0 +1,35 @@
+[
+  {
+    "graph_name": "Medium Graph 1",
+    "vertices": 10,
+    "edges": 18,
+    "prim_cost": 34.0,
+    "prim_time_ms": 0.0309,
+    "prim_operations": 29,
+    "kruskal_cost": 34.0,
+    "kruskal_time_ms": 0.0272,
+    "kruskal_operations": 83
+  },
+  {
+    "graph_name": "Medium Graph 2",
+    "vertices": 12,
+    "edges": 19,
+    "prim_cost": 65.0,
+    "prim_time_ms": 0.0314,
+    "prim_operations": 32,
+    "kruskal_cost": 65.0,
+    "kruskal_time_ms": 0.0287,
+    "kruskal_operations": 110
+  },
+  {
+    "graph_name": "Medium Graph 3",
+    "vertices": 15,
+    "edges": 24,
+    "prim_cost": 59.0,
+    "prim_time_ms": 0.1359,
+    "prim_operations": 45,
+    "kruskal_cost": 59.0,
+    "kruskal_time_ms": 0.0319,
+    "kruskal_operations": 137
+  }
+]

@@ -7,10 +7,16 @@ public class Graph {
     private List<Edge> edges;
     private Map<Integer, List<Edge>> adjacencyList;
 
+    private Map<String, Integer> nodeNameToIndex;
+    private Map<Integer, String> indexToNodeName;
+
     public Graph(int vertices) {
         this.vertices = vertices;
         this.edges = new ArrayList<>();
         this.adjacencyList = new HashMap<>();
+        this.nodeNameToIndex = new HashMap<>();
+        this.indexToNodeName = new HashMap<>();
+
         for (int i = 0; i < vertices; i++) {
             adjacencyList.put(i, new ArrayList<>());
         }
@@ -21,6 +27,27 @@ public class Graph {
         edges.add(edge);
         adjacencyList.get(source).add(edge);
         adjacencyList.get(destination).add(new Edge(destination, source, weight));
+    }
+
+
+    public void setNodeNames(Map<String, Integer> nodeMapping) {
+        this.nodeNameToIndex = nodeMapping;
+
+        for (Map.Entry<String, Integer> entry : nodeMapping.entrySet()) {
+            this.indexToNodeName.put(entry.getValue(), entry.getKey());
+        }
+    }
+
+    public String getNodeName(int index) {
+        return indexToNodeName.getOrDefault(index, String.valueOf(index));
+    }
+
+    public Integer getNodeIndex(String name) {
+        return nodeNameToIndex.get(name);
+    }
+
+    public Map<Integer, String> getNodeNames() {
+        return new HashMap<>(indexToNodeName);
     }
 
     public int getVertices() { return vertices; }
@@ -87,5 +114,17 @@ public class Graph {
             }
         }
         return false;
+    }
+
+    public void printGraphStructure() {
+        System.out.println("Graph with " + vertices + " vertices:");
+        System.out.println("Nodes: " + indexToNodeName.values());
+        System.out.println("Edges:");
+        for (Edge edge : edges) {
+            String fromName = getNodeName(edge.getSource());
+            String toName = getNodeName(edge.getDestination());
+            System.out.printf("  %s --[%.2f]-- %s%n",
+                    fromName, edge.getWeight(), toName);
+        }
     }
 }

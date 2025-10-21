@@ -1,6 +1,5 @@
 package mst.algorithms;
 
-
 import mst.model.Edge;
 import mst.model.Graph;
 import mst.model.MSTResult;
@@ -10,7 +9,7 @@ import java.util.*;
 public class KruskalAlgorithm {
 
     public static MSTResult findMST(Graph graph) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         List<Edge> mstEdges = new ArrayList<>();
         List<Edge> edges = new ArrayList<>(graph.getEdges());
@@ -37,10 +36,11 @@ public class KruskalAlgorithm {
         }
 
         operationCount += uf.getOperations();
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
+        double executionTimeMs = (endTime - startTime) / 1_000_000.0;
 
         return new MSTResult(mstEdges, totalCost, graph.getVertices(),
                 graph.getEdges().size(), operationCount,
-                endTime - startTime, "Kruskal");
+                executionTimeMs, "Kruskal");
     }
 }

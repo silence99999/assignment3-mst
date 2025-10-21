@@ -9,7 +9,7 @@ import java.util.*;
 public class PrimAlgorithm {
 
     public static MSTResult findMST(Graph graph) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         if (graph.getVertices() == 0) {
             return new MSTResult(new ArrayList<>(), 0.0, 0, 0, 0, 0, "Prim");
@@ -51,10 +51,11 @@ public class PrimAlgorithm {
             }
         }
 
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
+        double executionTimeMs = (endTime - startTime) / 1_000_000.0;
 
         return new MSTResult(mstEdges, totalCost, graph.getVertices(),
                 graph.getEdges().size(), operationCount,
-                endTime - startTime, "Prim");
+                executionTimeMs, "Prim");
     }
 }

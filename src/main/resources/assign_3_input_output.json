@@ -1,0 +1,35 @@
+[
+  {
+    "graph_name": "Small Graph",
+    "vertices": 4,
+    "edges": 5,
+    "prim_cost": 6.0,
+    "prim_time_ms": 0.0113,
+    "prim_operations": 8,
+    "kruskal_cost": 6.0,
+    "kruskal_time_ms": 0.0115,
+    "kruskal_operations": 22
+  },
+  {
+    "graph_name": "Medium Graph",
+    "vertices": 8,
+    "edges": 11,
+    "prim_cost": 15.0,
+    "prim_time_ms": 0.0124,
+    "prim_operations": 18,
+    "kruskal_cost": 15.0,
+    "kruskal_time_ms": 0.0139,
+    "kruskal_operations": 63
+  },
+  {
+    "graph_name": "Large Graph",
+    "vertices": 10,
+    "edges": 14,
+    "prim_cost": 24.0,
+    "prim_time_ms": 0.016,
+    "prim_operations": 25,
+    "kruskal_cost": 24.0,
+    "kruskal_time_ms": 0.0129,
+    "kruskal_operations": 81
+  }
+]
