@@ -1,0 +1,13 @@
+Graph Name,Vertices,Edges,Prim Cost,Prim Time (ms),Prim Operations,Kruskal Cost,Kruskal Time (ms),Kruskal Operations
+Small Graph 1,4,5,19.0,0.2571,9,19.0,0.5095,26
+Small Graph 2,3,3,3.0,0.0094,5,3.0,0.0104,14
+Small Graph 3,5,6,9.0,0.0110,11,9.0,0.0195,29
+Small Graph 4,6,9,16.0,0.0153,15,16.0,0.0140,37
+Medium Graph 1,10,18,34.0,0.0309,29,34.0,0.0272,83
+Medium Graph 2,12,19,65.0,0.0314,32,65.0,0.0287,110
+Medium Graph 3,15,24,59.0,0.1359,45,59.0,0.0319,137
+Large Graph 1,25,44,153.0,0.0569,78,153.0,0.0743,240
+Large Graph 2,30,57,200.0,0.0617,104,200.0,0.0513,316
+Small Graph,4,5,6.0,0.0113,8,6.0,0.0115,22
+Medium Graph,8,11,15.0,0.0124,18,15.0,0.0139,63
+Large Graph,10,14,24.0,0.0160,25,24.0,0.0129,81
